@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import VercelLink from "@/components/reutilizable/VercelLink";
+import Navbar from "@/components/reutilizable/Navbar";
+import { Toaster } from "@/components/ui/sonner";
+import ReactQueryProvider from "@/providers/ReactQueryProviders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-
-        {/* Only shows in development env*/}
-        <VercelLink />
+        <ReactQueryProvider>
+          <Navbar />
+          {children}
+          <Toaster richColors position="top-right" />
+          {/* Only shows in development env*/}
+          <VercelLink />
+        </ReactQueryProvider>
       </body>
     </html>
   );
