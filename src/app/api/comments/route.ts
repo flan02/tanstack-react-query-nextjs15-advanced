@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { comments, type Comment } from "./data";
+import { getComments } from "@/services/api";
 
 export type CommentsResponse = {
   comments: Comment[];
@@ -7,36 +8,7 @@ export type CommentsResponse = {
   totalComments: number;
 };
 
-// This simulates a call to your DB/ORM
-function getComments(
-  take: number,
-  cursor?: number
-): {
-  data: Comment[];
-  nextCursor: number | null;
-} {
-  // Find the starting index based on cursor
-  let startIndex = 0;
 
-  if (cursor) {
-    // Find the index of the comment with the given ID (cursor)
-    const cursorIndex = comments.findIndex((comment) => comment.id === cursor);
-    if (cursorIndex !== -1) {
-      startIndex = cursorIndex; // Start at this comment
-    }
-  }
-
-  // Get the slice of comments for this page (fetch take + 1 to check if more exist)
-  const fetchedItems = comments.slice(startIndex, startIndex + take + 1);
-
-  // The additional item becomes the next cursor
-  const nextCursor = fetchedItems.length > take ? fetchedItems[take].id : null;
-
-  return {
-    data: fetchedItems.slice(0, take),
-    nextCursor,
-  };
-}
 
 export async function GET(request: Request) {
   // Parse URL parameters
@@ -83,8 +55,8 @@ export async function POST(request: Request) {
     );
   }
 
-  // Simulate network delay (between 300ms and 1000ms)
-  const delay = Math.floor(Math.random() * 700) + 300;
+  // Simulate network delay (between 4300ms and 5000ms)
+  const delay = Math.floor(Math.random() * 700) + 4300;
   await new Promise((resolve) => setTimeout(resolve, delay));
 
   // Randomly throw an error (10% chance)

@@ -46,16 +46,16 @@ export default function Home() {
         <NavigationCard
           title="Mutations with React Query"
           description="Learn how to create, update, and delete data using useMutation with proper error handling."
-          href="/infinite-query"
+          href="/mutation-query"
         />
 
         <NavigationCard
-          title="Optimistic Updates"
+          title="Optimistic Updates React Query"
           description="Improve user experience by updating the UI optimistically before server confirmation."
-          href="/infinite-query"
+          href="/optimistic-query"
         />
       </section>
-      <section>
+      <section className="">
         <h3 className="mb-2 font-bold uppercase">Benefits</h3>
         <ul className="pl-4 list-disc">
           <li className="">Caching</li>

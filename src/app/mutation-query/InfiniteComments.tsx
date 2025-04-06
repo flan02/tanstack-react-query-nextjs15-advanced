@@ -1,34 +1,29 @@
 import { formatRelativeDate } from "@/lib/utils";
 import { CommentForm } from "./CommentForm";
 import { Button } from "@/components/ui/button";
+import { useComments } from "@/hooks/useComments";
 
 export default function InfiniteComments() {
+  const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useComments()
+
+  const comments = data?.pages.flatMap((page) => page.comments);
+
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">
-        Comments
-      </h2>
-
+      <h2 className="text-xl font-bold mb-4">Comments ({data?.pages[0].totalComments ?? '-'})</h2>
       <CommentForm />
 
-      {/* {isLoading && <p className="mb-4 text-blue-500">Loading comments...</p>}
+      {isLoading && <p className="mb-4 text-blue-500">Loading comments...</p>}
+      {isError && <div className="mb-4 text-red-500">Error loading comments: {error?.message}</div>}
 
-      {isError && (
-        <div className="mb-4 text-red-500">
-          Error loading comments: {error?.message}
-        </div>
-      )}
-
-      {!isLoading && !isError && comments?.length === 0 && (
-        <div className="mb-4">No comments yet.</div>
-      )}
+      {!isLoading && !isError && comments?.length === 0 && <div className="mb-4">No comments yet.</div>}
 
       {comments && comments.length > 0 && (
         <div>
           <div className="space-y-3">
-            {comments?.map((comment) => (
+            {comments?.map((comment, index) => (
               <div
-                key={comment.id}
+                key={index}
                 className="flex gap-3 p-3 border rounded-lg bg-white"
               >
                 <div className="flex-shrink-0">
@@ -61,7 +56,7 @@ export default function InfiniteComments() {
             )}
           </div>
         </div>
-      )} */}
+      )}
     </div>
-  );
+  )
 }
