@@ -1,5 +1,6 @@
 import CommentForm from "@/components/infinite-scroll/CommentForm";
 import CommentsList from "@/components/infinite-scroll/CommentList";
+import CommentsListScroll from "@/components/infinite-scroll/CommentListScroll";
 
 
 export default function InfiniteScrollPage() {
@@ -20,7 +21,8 @@ export default function InfiniteScrollPage() {
       <div className="max-w-xl mx-auto p-4 space-y-4">
         <h2 className="text-xl font-bold">Comments</h2>
         <CommentForm />
-        <CommentsList />
+        {/* <CommentsList /> */}
+        <CommentsListScroll />
       </div>
 
 

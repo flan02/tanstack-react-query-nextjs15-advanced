@@ -1,20 +1,12 @@
 "use client";
 
-import { GetCommentsResponse } from "@/app/api/infinite-comments/route";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import ky from "ky";
 import { Loader2 } from "lucide-react";
 import { Comment } from "./Comments";
 import { Button } from "../ui/button";
+import { useCommentsKY } from "@/hooks/useComments";
 
 export default function CommentsList() {
-  const { data, isPending, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ["comments"],
-    queryFn: ({ pageParam }) => ky.get(`/api/infinite-comments?${pageParam ? `cursor=${pageParam}` : ""}`).json<GetCommentsResponse>(),
-    initialPageParam: undefined as number | undefined,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-    // getPreviousPageParam: (firstPage) => firstPage.prevCursor
-  })
+  const { data, isPending, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useCommentsKY()
 
   const comments = data?.pages.flatMap(page => page.comments)
 
@@ -49,6 +41,7 @@ export default function CommentsList() {
           </div>
         </>
       )}
+      {!isError && !comments?.length && (<div className="text-center text-gray-500">No comments found</div>)}
       {isError && <div className="text-red-500">Error: {error.message}</div>}
     </div>
   )

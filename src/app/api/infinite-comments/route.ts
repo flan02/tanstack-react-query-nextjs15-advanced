@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
   const cursorParam = request.nextUrl.searchParams.get("cursor");
   const cursor = cursorParam ? parseInt(cursorParam) : undefined;
 
-  // You could also pass this as a nother searchParam from the frontend
+  // You could also pass this as another searchParam from the frontend
   const pageSize = 10;
 
   // Simulate network delay (between 300ms and 1000ms)

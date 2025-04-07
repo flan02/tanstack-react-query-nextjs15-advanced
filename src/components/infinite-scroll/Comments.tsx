@@ -14,7 +14,7 @@ export function Comment({ comment }: CommentProps) {
   return (
     <div className="flex gap-3 p-3 border rounded-lg bg-card">
       <div className="flex-shrink-0">
-        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-medium">
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-medium border">
           {comment.user.avatar}
         </div>
       </div>
